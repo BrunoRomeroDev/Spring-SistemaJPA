@@ -1,11 +1,14 @@
 package br.com.JPA.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.JPA.Exception.ExceptionExist;
+import br.com.JPA.Model.FuncionarioModel;
 import br.com.JPA.entity.FuncionarioEntity;
 import br.com.JPA.repository.FuncionarioRepository;
 
@@ -46,5 +49,21 @@ public class FuncionarioService {
 			throw new ExceptionExist();
 		}
 		return fe;
+	}
+	
+	public FuncionarioModel convertModel(FuncionarioEntity fe) {
+		return new FuncionarioModel(fe);
+	}
+	
+	public FuncionarioModel convertModelId(Integer id) {
+		return new FuncionarioModel(funcionariorepository.findById(id).get());
+	}
+	
+	public List<FuncionarioModel> convertlistfunc(List<FuncionarioEntity> listfe){
+		List<FuncionarioModel> funcmodel = new ArrayList<>();
+		 listfe.forEach(f -> funcmodel.add(new FuncionarioModel(f)));
+		return funcmodel;
+		
+			
 	}
 }

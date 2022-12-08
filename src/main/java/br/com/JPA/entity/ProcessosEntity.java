@@ -3,16 +3,18 @@ package br.com.JPA.entity;
 
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -42,6 +44,7 @@ public class ProcessosEntity {
 	@JoinColumn(name = "id_funcionario_tramitacao", insertable = false,updatable = false)
 	private FuncionarioEntity funcionario;
 	
+	@JsonIgnore
 	private Integer id_funcionario_tramitacao;
 	
 

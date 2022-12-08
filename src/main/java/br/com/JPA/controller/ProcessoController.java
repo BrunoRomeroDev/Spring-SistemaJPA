@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.JPA.Model.ProcessoModel;
 import br.com.JPA.entity.ProcessosEntity;
 import br.com.JPA.repository.ProcessosRepository;
 import br.com.JPA.service.ProcessosService;
@@ -29,6 +30,11 @@ public class ProcessoController {
 	@GetMapping("/api/processos")
 	public List<ProcessosEntity> listarProcessos(){
 		return processorepository.findAll();
+	}
+	
+	@GetMapping("/api/processosModel")
+	public List<ProcessoModel> listarProcessosModel(){
+		return processosservice.convertlistProcesso(processorepository.findAll());
 	}
 	
 	@GetMapping("/api/processos/{id}")

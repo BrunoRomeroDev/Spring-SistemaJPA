@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.JPA.Exception.ExceptionExist;
+import br.com.JPA.Model.FuncionarioModel;
 import br.com.JPA.entity.FuncionarioEntity;
 import br.com.JPA.repository.FuncionarioRepository;
 import br.com.JPA.service.FuncionarioService;
@@ -32,6 +33,12 @@ public class FuncionarioController {
 	@GetMapping("/api/funcionarios")
 	public List<FuncionarioEntity> todosFuncionarios(){
 		List<FuncionarioEntity> func = funcionariorepository.findAll();
+		return func;
+	}
+	
+	@GetMapping("/api/funcionariosmodel")
+	public List<FuncionarioModel> todosFuncionariosModel(){
+		List<FuncionarioModel> func = funcionarioservice.convertlistfunc(funcionariorepository.findAll()) ;
 		return func;
 	}
 	
@@ -56,7 +63,7 @@ public class FuncionarioController {
 					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@DeleteMapping("/funcionario/{id}")
+	@DeleteMapping("/api/funcionario/{id}")
 	public ResponseEntity<FuncionarioEntity> deleteid(@PathVariable Integer id){
 		return funcionarioservice.deleteid(id)
 					.map(func -> ResponseEntity.status(HttpStatus.OK).body(func))

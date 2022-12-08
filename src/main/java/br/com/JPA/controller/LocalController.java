@@ -27,25 +27,25 @@ public class LocalController {
 	
 	@Autowired
 	private LocaisService localservice;
-	@GetMapping("/locais")
+	@GetMapping("/api/locais")
 	public List<LocalEntity> todosLocais(){
 		List<LocalEntity> locais = localrepository.findAll();
 		return locais;
 	}
 	
-	@PostMapping("/locais")
+	@PostMapping("/api/locais")
 	public void novoLocal(@RequestBody @Validated LocalEntity le ) {
 		localrepository.save(le);
 	}
 	
-	@DeleteMapping("/locais/{id}")
+	@DeleteMapping("/api/locais/{id}")
 	public ResponseEntity<Optional<LocalEntity>> deletelocal(@PathVariable Integer id){
 		return localrepository.findById(id).map(local -> ResponseEntity.status(HttpStatus.OK).body(localservice.deleteid(id)))
 				.orElse(ResponseEntity.notFound().build());
 		
 	}
 	
-	@PutMapping("/local")
+	@PutMapping("/api/local")
 	public ResponseEntity<LocalEntity> alteralocal(@RequestBody LocalEntity le){
 		return localservice.alteraid(le).map(local -> ResponseEntity.status(HttpStatus.OK).body(local))
 				.orElse(ResponseEntity.notFound().build());
