@@ -1,6 +1,7 @@
 package br.com.JPA.Exception;
 
 import java.time.OffsetDateTime;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<ExceptionPadrao> argumentoInvalidox(){
-		ExceptionPadrao ed = new ExceptionPadrao("Argumento Invalido",OffsetDateTime.now());
+		ExceptionPadrao ed = new ExceptionPadrao("Tipo do Argumento Invalido",OffsetDateTime.now());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ed);
 		
 	}
@@ -43,5 +44,11 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 		
 	}
 	
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<ExceptionPadrao> argumentoNaoEncontrado(){
+		ExceptionPadrao ed = new ExceptionPadrao("Valor não existe",OffsetDateTime.now());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ed);
+		
+	}
 
 }

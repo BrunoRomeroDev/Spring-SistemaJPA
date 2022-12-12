@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.JPA.Exception.ExceptionExist;
 import br.com.JPA.Model.FuncionarioModel;
+import br.com.JPA.entity.FuncionarioContatoDTO;
 import br.com.JPA.entity.FuncionarioEntity;
 import br.com.JPA.repository.FuncionarioRepository;
 import br.com.JPA.service.FuncionarioService;
@@ -49,8 +50,8 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping("/api/funcionarios")
-	public ResponseEntity<FuncionarioEntity>  novoFuncionarios(@RequestBody @Validated FuncionarioEntity fe) throws ExceptionExist{
-		Optional<FuncionarioEntity> opt = Optional.of(funcionarioservice.novofunc(fe));
+	public ResponseEntity<FuncionarioEntity>  novoFuncionarios(@RequestBody FuncionarioContatoDTO fcdto) throws ExceptionExist{
+		Optional<FuncionarioEntity> opt = Optional.of(funcionarioservice.novofunc(fcdto.getFe(),fcdto.getCo()));
 		return opt
 				.map(func -> ResponseEntity.status(HttpStatus.OK).body(func))
 					.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());

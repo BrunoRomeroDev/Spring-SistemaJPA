@@ -18,14 +18,14 @@ public class FuncionarioModel {
 	public FuncionarioModel(FuncionarioEntity fe) {
 		this.nome = fe.getNome();
 		this.nome_completo = fe.getNomeCompleto();
-		this.listproc = fe.getProcessos();
+		
 
 	}
 	
 	public FuncionarioModel(FuncionarioEntity fe, List<ProcessosEntity> procs) {
 		this.nome = fe.getNome();
 		this.nome_completo = fe.getNomeCompleto();
-
+		this.listproc = procs;
 	}
 	
 	public FuncionarioModel() {

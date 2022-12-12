@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.JPA.Exception.ExceptionExist;
 import br.com.JPA.Model.FuncionarioModel;
+import br.com.JPA.entity.Contato;
 import br.com.JPA.entity.FuncionarioEntity;
 import br.com.JPA.repository.FuncionarioRepository;
 
@@ -40,10 +41,11 @@ public class FuncionarioService {
 		return feoptional;
 	}
 	
-	public FuncionarioEntity novofunc(FuncionarioEntity fe) throws ExceptionExist {
+	public FuncionarioEntity novofunc(FuncionarioEntity fe, Contato co) throws ExceptionExist {
 		Optional<FuncionarioEntity> feoptional = funcionariorepository.findByNomeCompleto(fe.getNomeCompleto());
 		
 		if(!feoptional.isPresent()) {
+			fe.setContato(co);
 			funcionariorepository.save(fe);
 		}else {
 			throw new ExceptionExist();

@@ -1,5 +1,6 @@
 package br.com.JPA.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class ProcessoController {
 	
 	@PostMapping("/api/processos")
 	public ResponseEntity<ProcessosEntity> novoProcesso(@RequestBody ProcessosEntity pe) {
+		pe.setData(new Date());
 		if(processorepository.save(pe) == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProcessosEntity() );
 		}
