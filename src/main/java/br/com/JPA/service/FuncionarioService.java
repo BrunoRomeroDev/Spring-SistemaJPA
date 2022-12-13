@@ -11,6 +11,7 @@ import br.com.JPA.Exception.ExceptionExist;
 import br.com.JPA.Model.FuncionarioModel;
 import br.com.JPA.entity.Contato;
 import br.com.JPA.entity.FuncionarioEntity;
+import br.com.JPA.entity.FuncionarioUpdate;
 import br.com.JPA.repository.FuncionarioRepository;
 
 @Service
@@ -41,6 +42,17 @@ public class FuncionarioService {
 		return feoptional;
 	}
 	
+	public Optional<FuncionarioEntity> alteraidmodel(FuncionarioUpdate fe) {
+		Optional<FuncionarioEntity> feoptional = funcionariorepository.findById(fe.getId());
+		
+		if(feoptional.isPresent()) {
+			feoptional.get().setContato(fe.getContato()); 
+			funcionariorepository.save(feoptional.get());
+		}else {
+			throw new NullPointerException();
+		}
+		return feoptional;
+	}
 	public FuncionarioEntity novofunc(FuncionarioEntity fe, Contato co) throws ExceptionExist {
 		Optional<FuncionarioEntity> feoptional = funcionariorepository.findByNomeCompleto(fe.getNomeCompleto());
 		

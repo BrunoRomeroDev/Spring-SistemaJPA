@@ -19,6 +19,7 @@ import br.com.JPA.Exception.ExceptionExist;
 import br.com.JPA.Model.FuncionarioModel;
 import br.com.JPA.entity.FuncionarioContatoDTO;
 import br.com.JPA.entity.FuncionarioEntity;
+import br.com.JPA.entity.FuncionarioUpdate;
 import br.com.JPA.repository.FuncionarioRepository;
 import br.com.JPA.service.FuncionarioService;
 
@@ -60,6 +61,13 @@ public class FuncionarioController {
 	@PutMapping("/api/funcionarios")
 	public ResponseEntity<FuncionarioEntity>  alteraFuncionarios(@RequestBody @Validated FuncionarioEntity fe){
 		return funcionarioservice.alteraid(fe)
+				.map(func -> ResponseEntity.status(HttpStatus.OK).body(func))
+					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
+	@PutMapping("/api/funcionariosmodel")
+	public ResponseEntity<FuncionarioEntity>  alteraFuncionariosmodel(@RequestBody FuncionarioUpdate fu){
+		return funcionarioservice.alteraidmodel(fu)
 				.map(func -> ResponseEntity.status(HttpStatus.OK).body(func))
 					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}

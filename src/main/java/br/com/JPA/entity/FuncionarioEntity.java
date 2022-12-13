@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -50,7 +51,8 @@ public class FuncionarioEntity {
 	@Enumerated(EnumType.STRING)
 	private Contratacao contrato;
 	
-	@JsonManagedReference
+	@JsonIgnore
+	@JsonManagedReference(value="funcionario")
 	@OneToMany(mappedBy = "funcionario", targetEntity = ProcessosEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ProcessosEntity> processos;
 	
