@@ -35,7 +35,7 @@ public class FuncionarioService {
 		Optional<FuncionarioEntity> feoptional = funcionariorepository.findById(fe.getId());
 		
 		if(feoptional.isPresent()) {
-			funcionariorepository.save(feoptional.get());
+			funcionariorepository.save(fe);
 		}else {
 			throw new NullPointerException();
 		}

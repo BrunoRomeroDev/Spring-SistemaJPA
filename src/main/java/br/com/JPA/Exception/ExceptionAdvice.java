@@ -1,8 +1,10 @@
 package br.com.JPA.Exception;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.OffsetDateTime;
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -47,6 +49,20 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<ExceptionPadrao> argumentoNaoEncontrado(){
 		ExceptionPadrao ed = new ExceptionPadrao("Valor não existe",OffsetDateTime.now());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ed);
+		
+	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ExceptionPadrao> violacaointegridade(){
+		ExceptionPadrao ed = new ExceptionPadrao("Dados invalidos ",OffsetDateTime.now());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ed);
+		
+	}
+	
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<ExceptionPadrao> violacaointegridadesql(){
+		ExceptionPadrao ed = new ExceptionPadrao("Erro de gravacao no banco. dados errados",OffsetDateTime.now());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ed);
 		
 	}
